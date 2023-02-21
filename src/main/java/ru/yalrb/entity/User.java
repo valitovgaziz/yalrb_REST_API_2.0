@@ -17,8 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name="account")
-public class Account implements UserDetails {
+@Table(name="_user")
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
