@@ -1,15 +1,14 @@
 package ru.yalrb.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.yalrb.config.JwtService;
-import ru.yalrb.controllers.AuthenticationRequest;
-import ru.yalrb.controllers.AuthenticationResponse;
-import ru.yalrb.controllers.RegisterRequest;
+import ru.yalrb.entity.requestResponseObjects.AuthenticationRequest;
+import ru.yalrb.entity.requestResponseObjects.AuthenticationResponse;
+import ru.yalrb.entity.requestResponseObjects.RegisterRequest;
 import ru.yalrb.entity.Role;
 import ru.yalrb.entity.User;
 import ru.yalrb.repository.UserRepository;
@@ -28,7 +27,7 @@ public class AuthenticationService {
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getEmail()))
+                .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
         repository.save(user);
@@ -39,12 +38,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
                         request.getPassword()
                 )
         );
+
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
@@ -52,4 +53,5 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
+
 }

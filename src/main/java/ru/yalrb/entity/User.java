@@ -21,20 +21,26 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
+    @NonNull
     private String firstName;
-
+    @NonNull
     private String lastName;
-
+    @NonNull
     private String password;
-
+    @NonNull
     private String email;
-
+    @NonNull
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     @Override

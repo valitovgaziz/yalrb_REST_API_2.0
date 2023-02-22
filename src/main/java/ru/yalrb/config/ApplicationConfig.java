@@ -1,5 +1,7 @@
 package ru.yalrb.config;
 
+import lombok.Data;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +16,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.yalrb.repository.UserRepository;
 
 @Configuration
-@RequiredArgsConstructor
+@Data
 public class ApplicationConfig {
 
+    @NonNull
     private final UserRepository repository;
 
     @Bean
