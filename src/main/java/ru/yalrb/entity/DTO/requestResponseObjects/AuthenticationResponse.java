@@ -1,4 +1,4 @@
-package ru.yalrb.entity.requestResponseObjects;
+package ru.yalrb.entity.DTO.requestResponseObjects;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

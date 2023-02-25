@@ -5,12 +5,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.yalrb.config.JwtService;
-import ru.yalrb.entity.requestResponseObjects.AuthenticationRequest;
-import ru.yalrb.entity.requestResponseObjects.AuthenticationResponse;
-import ru.yalrb.entity.requestResponseObjects.RegisterRequest;
-import ru.yalrb.entity.Role;
-import ru.yalrb.entity.Account;
+import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationRequest;
+import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationResponse;
+import ru.yalrb.entity.DTO.requestResponseObjects.RegisterRequest;
+import ru.yalrb.entity.models.account.Role;
+import ru.yalrb.entity.models.account.Account;
 import ru.yalrb.repository.UserRepository;
 
 @Service

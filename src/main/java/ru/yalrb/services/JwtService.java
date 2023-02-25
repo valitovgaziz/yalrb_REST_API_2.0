@@ -1,4 +1,4 @@
-package ru.yalrb.config;
+package ru.yalrb.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

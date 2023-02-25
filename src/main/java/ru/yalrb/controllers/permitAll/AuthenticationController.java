@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.yalrb.entity.requestResponseObjects.AuthenticationRequest;
-import ru.yalrb.entity.requestResponseObjects.AuthenticationResponse;
-import ru.yalrb.entity.requestResponseObjects.RegisterRequest;
+import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationRequest;
+import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationResponse;
+import ru.yalrb.entity.DTO.requestResponseObjects.RegisterRequest;
 import ru.yalrb.services.AuthenticationService;
 
 @RestController
