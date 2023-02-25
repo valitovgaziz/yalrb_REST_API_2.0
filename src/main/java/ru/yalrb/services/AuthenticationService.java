@@ -10,7 +10,7 @@ import ru.yalrb.entity.requestResponseObjects.AuthenticationRequest;
 import ru.yalrb.entity.requestResponseObjects.AuthenticationResponse;
 import ru.yalrb.entity.requestResponseObjects.RegisterRequest;
 import ru.yalrb.entity.Role;
-import ru.yalrb.entity.User;
+import ru.yalrb.entity.Account;
 import ru.yalrb.repository.UserRepository;
 
 @Service
@@ -23,7 +23,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        var user = User.builder()
+        var user = Account.builder()
                 .firstName(request.getFirstName())
                 .lastName(request.getLastName())
                 .email(request.getEmail())

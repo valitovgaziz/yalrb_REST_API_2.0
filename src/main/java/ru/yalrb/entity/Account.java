@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @Builder
 @Table(name="_user")
-public class User implements UserDetails {
+public class Account implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;

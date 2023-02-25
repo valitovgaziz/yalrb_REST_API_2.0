@@ -1,12 +1,12 @@
 package ru.yalrb.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.yalrb.entity.User;
+import ru.yalrb.entity.Account;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<Account, Long> {
 
-    Optional<User> findByEmail(String email);
+    Optional<Account> findByEmail(String email);
 
 }
