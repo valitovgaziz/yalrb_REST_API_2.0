@@ -19,7 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class YalObject {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(nullable = false)
     private UUID id;
 

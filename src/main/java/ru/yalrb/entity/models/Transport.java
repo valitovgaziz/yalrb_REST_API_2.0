@@ -1,12 +1,7 @@
 package ru.yalrb.entity.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
@@ -16,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 public class Transport {
 
     @Id
-    @GeneratedValue
-    private Byte id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Short id;
 
     private String name;
 
