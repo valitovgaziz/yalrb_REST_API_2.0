@@ -19,10 +19,9 @@ public class UserRole {
     @Column(nullable = false)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
     @Builder.Default
     @Column(length = 50)
-    private String name = Role.NOT_DEFINED.toString();
+    private String name = "нет роли";
 
     @Column(length = 500)
     @Builder.Default
