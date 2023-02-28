@@ -4,10 +4,7 @@ import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 
-import ru.yalrb.entity.models.Contact;
-import ru.yalrb.entity.models.FeetBack;
-import ru.yalrb.entity.models.Photo;
-import ru.yalrb.entity.models.State;
+import ru.yalrb.entity.models.*;
 import ru.yalrb.entity.models.account.Account;
 
 import java.util.Calendar;
@@ -86,5 +83,8 @@ public class YalObject {
 
     @OneToMany
     private HashSet<Photo> photos;
+
+    @ManyToMany
+    private HashSet<AgeRange> ageRanges;
 
 }
