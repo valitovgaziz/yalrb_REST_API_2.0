@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import ru.yalrb.entity.models.AgeRange;
 
 @Repository
-public interface AgeRangeRepository extends JpaRepository<AgeRange, Byte> {
+public interface AgeRangeRepository extends JpaRepository<AgeRange, Long> {
 }

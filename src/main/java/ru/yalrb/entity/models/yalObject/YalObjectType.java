@@ -24,10 +24,12 @@ public class YalObjectType {
 
     @NonNull
     @Builder.Default
+    @Column(length = 500)
     private String name = "нет названия";
 
     @NonNull
     @Builder.Default
+    @Column(length = 1500)
     private String description = "нет описания";
 
 }

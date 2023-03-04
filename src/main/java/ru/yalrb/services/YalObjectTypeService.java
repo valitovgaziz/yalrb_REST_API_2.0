@@ -9,7 +9,11 @@ import ru.yalrb.repository.YalObjectTypeRepository;
 @Data
 public class YalObjectTypeService {
 
-    private YalObjectTypeRepository yalObjectTypeRepository;
+    private final YalObjectTypeRepository yalObjectTypeRepository;
+
+    public YalObjectTypeService(YalObjectTypeRepository yalObjectTypeRepository) {
+        this.yalObjectTypeRepository = yalObjectTypeRepository;
+    }
 
     public void save(YalObjectType yalObjectType) {
         yalObjectTypeRepository.save(yalObjectType);

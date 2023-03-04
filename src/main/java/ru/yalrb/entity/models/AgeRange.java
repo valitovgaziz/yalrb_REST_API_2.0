@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class AgeRange {
     @Id
     @GeneratedValue
-    private Byte id;
+    private Long id;
 
     private Integer fromAge;
 
