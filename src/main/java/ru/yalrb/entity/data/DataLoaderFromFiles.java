@@ -74,7 +74,7 @@ public class DataLoaderFromFiles {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadLeisureSubTypes() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/leisureSubTypes.dat.dat")).getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource("data/leisureSubTypes.dat")).getFile());
 
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
