@@ -1,4 +1,4 @@
-package ru.yalrb.entity.data;
+package ru.yalrb.dataLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component;
 import ru.yalrb.entity.models.Transport;
 import ru.yalrb.entity.models.yalObject.LeisureSubType;
 import ru.yalrb.entity.models.yalObject.LeisureType;
+import ru.yalrb.entity.models.yalObject.YalObjectType;
 import ru.yalrb.services.LeisureSubTypeService;
 import ru.yalrb.services.LeisureTypeService;
 import ru.yalrb.services.TransportService;
+import ru.yalrb.services.YalObjectTypeService;
 
 import java.io.*;
 import java.util.Objects;
@@ -27,6 +29,9 @@ public class DataLoaderFromFiles {
 
     @Autowired
     private LeisureSubTypeService leisureSubTypeService;
+
+    @Autowired
+    private YalObjectTypeService yalObjectTypeService;
 
     ClassLoader classLoader = getClass().getClassLoader();
 
@@ -57,11 +62,9 @@ public class DataLoaderFromFiles {
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
         ) {
-            String nextLine;
             String[] leisureTypeLine;
             while (reader.ready()) {
-                nextLine = reader.readLine();
-                leisureTypeLine = nextLine.split(DELIMITER);
+                leisureTypeLine = reader.readLine().split(DELIMITER);
                 LeisureType leisureType = new LeisureType();
                 leisureType.setName(leisureTypeLine[0]);
                 leisureType.setDescription(leisureTypeLine[1]);
@@ -79,11 +82,9 @@ public class DataLoaderFromFiles {
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
         ) {
-            String nextLine;
             String[] leisureSubTypeLine;
             while (reader.ready()) {
-                nextLine = reader.readLine();
-                leisureSubTypeLine = nextLine.split(DELIMITER);
+                leisureSubTypeLine = reader.readLine().split(DELIMITER);
                 LeisureSubType leisureSubType = new LeisureSubType();
                 leisureSubType.setName(leisureSubTypeLine[0]);
                 leisureSubType.setDescription(leisureSubTypeLine[1]);
@@ -94,6 +95,25 @@ public class DataLoaderFromFiles {
         }
     }
 
+    @EventListener(ApplicationReadyEvent.class)
+    public void loadYalObjectTypes() {
+        File file = new File(Objects.requireNonNull(classLoader.getResource("data/yalObjectTypes.dat")).getFile());
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(file))
+        ) {
+            String[] yalObjectTypeParts;
+            while (reader.ready()) {
+                yalObjectTypeParts = reader.readLine().split(DELIMITER);
+                YalObjectType yalObjectType = new YalObjectType();
+                yalObjectType.setName(yalObjectTypeParts[0]);
+                yalObjectType.setDescription(yalObjectTypeParts[1]);
+                yalObjectTypeService.save(yalObjectType);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 }
