@@ -14,12 +14,12 @@ import lombok.RequiredArgsConstructor;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class RiskFactors {
+public class RiskFactor {
     @Id
     @GeneratedValue
-    private Byte id;
+    private Long id;
 
-    @Column(length = 50)
+
     private String name;
 
     @Column(length = 1000)

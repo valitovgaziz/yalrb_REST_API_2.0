@@ -5,6 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import ru.yalrb.entity.models.AgeRange;
+import ru.yalrb.entity.models.RiskFactor;
 import ru.yalrb.entity.models.Transport;
 import ru.yalrb.entity.models.yalObject.LeisureSubType;
 import ru.yalrb.entity.models.yalObject.LeisureType;
@@ -18,6 +19,9 @@ import java.util.Objects;
 public class DataLoaderFromFiles {
 
     private final String DELIMITER = "\\|";
+
+    @Autowired
+    private RiskFactorService riskFactorService;
 
     @Autowired
     private TransportService transportService;
@@ -133,6 +137,29 @@ public class DataLoaderFromFiles {
                         .description(rangeDataParts[3])
                         .build();
                 ageRangeService.save(ageRange);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void loadRiskFactorsData() {
+        File file = new File(Objects.requireNonNull(classLoader.getResource("data/riskFactors.dat")).getFile());
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(file))
+        ) {
+            String[] riskFactorsParts;
+            while (reader.ready()) {
+                riskFactorsParts = reader.readLine().split(DELIMITER);
+                RiskFactor riskFactor = RiskFactor.builder()
+                        .name(riskFactorsParts[0])
+                        .description(riskFactorsParts[1])
+                        .build();
+
+                riskFactorService.save(riskFactor);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
