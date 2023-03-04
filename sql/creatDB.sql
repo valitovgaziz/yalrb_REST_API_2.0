@@ -1,1 +1,0 @@
-create database yal_arba

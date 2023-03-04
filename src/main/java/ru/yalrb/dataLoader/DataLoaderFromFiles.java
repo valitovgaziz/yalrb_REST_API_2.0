@@ -4,14 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import ru.yalrb.entity.models.AgeRange;
 import ru.yalrb.entity.models.Transport;
 import ru.yalrb.entity.models.yalObject.LeisureSubType;
 import ru.yalrb.entity.models.yalObject.LeisureType;
 import ru.yalrb.entity.models.yalObject.YalObjectType;
-import ru.yalrb.services.LeisureSubTypeService;
-import ru.yalrb.services.LeisureTypeService;
-import ru.yalrb.services.TransportService;
-import ru.yalrb.services.YalObjectTypeService;
+import ru.yalrb.services.*;
 
 import java.io.*;
 import java.util.Objects;
@@ -33,8 +31,10 @@ public class DataLoaderFromFiles {
     @Autowired
     private YalObjectTypeService yalObjectTypeService;
 
-    ClassLoader classLoader = getClass().getClassLoader();
+    @Autowired
+    private AgeRangeService ageRangeService;
 
+    ClassLoader classLoader = getClass().getClassLoader();
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadTransportTypeData() throws FileNotFoundException {
@@ -113,6 +113,31 @@ public class DataLoaderFromFiles {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void loadAgeRangeData() {
+        File file = new File(Objects.requireNonNull(classLoader.getResource("data/ageRange.dat")).getFile());
+
+
+        try (
+                BufferedReader reader = new BufferedReader(new FileReader(file))
+        ) {
+            String[] rangeDataParts;
+            while (reader.ready()) {
+                rangeDataParts = reader.readLine().split(DELIMITER);
+                AgeRange ageRange = AgeRange.builder()
+                        .fromAge(Integer.parseInt(rangeDataParts[0]))
+                        .toAge(Integer.parseInt(rangeDataParts[1]))
+                        .name(rangeDataParts[2])
+                        .description(rangeDataParts[3])
+                        .build();
+                ageRangeService.save(ageRange);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 

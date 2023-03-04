@@ -24,4 +24,6 @@ public class AgeRange {
 
     private String name;
 
+    private String description;
+
 }
