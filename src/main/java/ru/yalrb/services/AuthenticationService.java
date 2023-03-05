@@ -5,6 +5,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RestController;
 import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationRequest;
 import ru.yalrb.entity.DTO.requestResponseObjects.AuthenticationResponse;
 import ru.yalrb.entity.DTO.requestResponseObjects.RegisterRequest;
@@ -14,6 +15,7 @@ import ru.yalrb.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
+@RestController
 public class AuthenticationService {
 
     private final UserRepository repository;
