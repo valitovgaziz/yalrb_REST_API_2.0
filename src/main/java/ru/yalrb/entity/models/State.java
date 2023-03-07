@@ -18,7 +18,7 @@ import java.util.HashSet;
 public class State {
     @Id
     @GeneratedValue
-    private Short id;
+    private Long id;
 
     @Column(length = 100)
     private String name;
