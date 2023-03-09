@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.yalrb.entity.models.*;
 import ru.yalrb.entity.models.appeal.Appeal;
 import ru.yalrb.entity.models.yalObject.YalObject;
+import ru.yalrb.entity.token.Token;
 
 import java.util.Calendar;
 import java.util.Collection;
@@ -86,6 +87,9 @@ public class Account implements UserDetails {
 
     @OneToMany
     HashSet<FeetBack> feetBacks;
+
+    @OneToMany
+    private List<Token> token;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
