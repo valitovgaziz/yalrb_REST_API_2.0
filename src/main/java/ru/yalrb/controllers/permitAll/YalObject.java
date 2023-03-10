@@ -19,7 +19,4 @@ public class YalObject {
     public String getYalObject() {
         return "";
     }
-
-
-
 }
