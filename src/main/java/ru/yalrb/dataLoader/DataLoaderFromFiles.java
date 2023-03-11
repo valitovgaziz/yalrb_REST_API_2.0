@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.util.ResourceUtils;
 import ru.yalrb.entity.models.AgeRange;
 import ru.yalrb.entity.models.RiskFactor;
 import ru.yalrb.entity.models.Transport;
@@ -38,11 +39,9 @@ public class DataLoaderFromFiles {
     @Autowired
     private AgeRangeService ageRangeService;
 
-    ClassLoader classLoader = getClass().getClassLoader();
-
     @EventListener(ApplicationReadyEvent.class)
     public void loadTransportTypeData() throws FileNotFoundException {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/transportTypes.dat")).getFile());
+        File file = ResourceUtils.getFile("classpath:data/transportTypes.dat");
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String nextLine;
         String[] transportData;
@@ -61,8 +60,8 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadLeisureTypesData() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/leisureTypes.dat")).getFile());
+    public void loadLeisureTypesData() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:data/leisureTypes.dat");
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
         ) {
@@ -80,8 +79,8 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadLeisureSubTypes() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/leisureSubTypes.dat")).getFile());
+    public void loadLeisureSubTypes() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:data/leisureSubTypes.dat");
 
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -100,8 +99,8 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadYalObjectTypes() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/yalObjectTypes.dat")).getFile());
+    public void loadYalObjectTypes() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:data/yalObjectTypes.dat");
 
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
@@ -120,8 +119,8 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadAgeRangeData() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/ageRange.dat")).getFile());
+    public void loadAgeRangeData() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:data/ageRange.dat");
 
 
         try (
@@ -145,8 +144,8 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadRiskFactorsData() {
-        File file = new File(Objects.requireNonNull(classLoader.getResource("data/riskFactors.dat")).getFile());
+    public void loadRiskFactorsData() throws FileNotFoundException {
+        File file = ResourceUtils.getFile("classpath:data/riskFactors.dat");
 
         try (
                 BufferedReader reader = new BufferedReader(new FileReader(file))
