@@ -3,6 +3,7 @@ package ru.yalrb.dataLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 import ru.yalrb.entity.models.AgeRange;
@@ -14,7 +15,6 @@ import ru.yalrb.entity.models.yalObject.YalObjectType;
 import ru.yalrb.services.*;
 
 import java.io.*;
-import java.util.Objects;
 
 @Component
 public class DataLoaderFromFiles {
@@ -40,12 +40,13 @@ public class DataLoaderFromFiles {
     private AgeRangeService ageRangeService;
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadTransportTypeData() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/transportTypes.dat");
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String nextLine;
-        String[] transportData;
-        try {
+    public void loadTransportTypeData() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/transportTypes.dat").getInputStream();
+        try (
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource));
+        ) {
+            String nextLine;
+            String[] transportData;
             while (reader.ready()) {
                 nextLine = reader.readLine();
                 transportData = nextLine.split(DELIMITER);
@@ -60,14 +61,14 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadLeisureTypesData() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/leisureTypes.dat");
+    public void loadLeisureTypesData() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/leisureTypes.dat").getInputStream();
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(file))
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStreamResource));
         ) {
             String[] leisureTypeLine;
-            while (reader.ready()) {
-                leisureTypeLine = reader.readLine().split(DELIMITER);
+            while (bufferedReader.ready()) {
+                leisureTypeLine = bufferedReader.readLine().split(DELIMITER);
                 LeisureType leisureType = new LeisureType();
                 leisureType.setName(leisureTypeLine[0]);
                 leisureType.setDescription(leisureTypeLine[1]);
@@ -79,11 +80,10 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadLeisureSubTypes() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/leisureSubTypes.dat");
-
+    public void loadLeisureSubTypes() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/leisureSubTypes.dat").getInputStream();
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(file))
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource));
         ) {
             String[] leisureSubTypeLine;
             while (reader.ready()) {
@@ -99,11 +99,10 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadYalObjectTypes() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/yalObjectTypes.dat");
-
+    public void loadYalObjectTypes() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/yalObjectTypes.dat").getInputStream();
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(file))
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource));
         ) {
             String[] yalObjectTypeParts;
             while (reader.ready()) {
@@ -119,12 +118,10 @@ public class DataLoaderFromFiles {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadAgeRangeData() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/ageRange.dat");
-
-
+    public void loadAgeRangeData() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/ageRange.dat").getInputStream();
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(file))
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource));
         ) {
             String[] rangeDataParts;
             while (reader.ready()) {
@@ -140,15 +137,13 @@ public class DataLoaderFromFiles {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public void loadRiskFactorsData() throws FileNotFoundException {
-        File file = ResourceUtils.getFile("classpath:data/riskFactors.dat");
-
+    public void loadRiskFactorsData() throws IOException {
+        InputStream inputStreamResource = new ClassPathResource("data/riskFactors.dat").getInputStream();
         try (
-                BufferedReader reader = new BufferedReader(new FileReader(file))
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStreamResource))
         ) {
             String[] riskFactorsParts;
             while (reader.ready()) {
@@ -163,8 +158,5 @@ public class DataLoaderFromFiles {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-
 }
