@@ -41,6 +41,7 @@ public class DataLoaderFromFiles {
 
     @EventListener(ApplicationReadyEvent.class)
     public void loadTransportTypeData() throws FileNotFoundException {
+
         File file = ResourceUtils.getFile("classpath:data/transportTypes.dat");
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String nextLine;
